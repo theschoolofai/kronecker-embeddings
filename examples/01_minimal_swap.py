@@ -7,6 +7,13 @@ its input embedding:
   (b) a KroneckerEmbedding (only D * d_model trainable parameters, where
       D = char_dim * pos_dim, independent of vocab_size).
 
+This example uses ``pos_dim=16`` (D = 256 * 16 = 4096) to match the
+paper's §6.9 124M parameter accounting. The reduction factor is
+``vocab_size / D = 50,257 / 4096 ≈ 12.27×``, independent of ``d_model``.
+At the paper's ``d_model=768`` setting this is 38.6M -> 3.1M
+(~91% input-side reduction, paper §6.9 Table 11); the same ratio
+applies at the ``d_model=128`` setting used here.
+
 Run::
 
     python examples/01_minimal_swap.py
@@ -52,11 +59,12 @@ def main() -> None:
     print(f"nn.Embedding trainable params:        {stock_params:>14,}")
 
     # ---- (b) KroneckerEmbedding ----
+    # pos_dim=16 -> D=4096, matching paper §6.9's 124M setting.
     k_emb = KroneckerEmbedding(
         vocab_size=tok.vocab_size,
         d_model=d_model,
         tokenizer=tok,
-        pos_dim=32,
+        pos_dim=16,
     )
     k_params = sum(p.numel() for p in k_emb.parameters())
     print(f"KroneckerEmbedding trainable params:  {k_params:>14,}")

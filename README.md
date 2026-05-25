@@ -9,9 +9,12 @@
 A deterministic byte-level factorization that replaces `nn.Embedding` with a
 fixed codec + a single trainable projection. Parameters scale with the
 codec output dimension `D = char_dim × pos_dim`, **not** with vocabulary
-size. A 50K-vocab tokenizer's stock `nn.Embedding(50257, 768)` has 38.6 M
-trainable params; the same-shape Kronecker embedding has 6.3 M — and the
-saving grows linearly with vocab size.
+size. At the paper's 124M GPT-2 setting (V=50,257, d_model=768, `D=4096`
+via `pos_dim=16`), the stock `nn.Embedding(50,257, 768)` has 38.6 M
+trainable params; the Kronecker projection `Linear(4096, 768)` has 3.1 M
+— a **~12.3× input-side reduction (~91% saving)**, matching paper §6.9
+Table 11. The saving grows with vocab and flattens with `D`, so it grows
+as you scale up.
 
 ---
 
@@ -31,6 +34,7 @@ emb = KroneckerEmbedding(
     vocab_size=tok.vocab_size,
     d_model=512,
     tokenizer=tok,        # buffers built once at construction
+    pos_dim=16,           # D = char_dim * pos_dim = 256 * 16 = 4096 (paper §6.9 setting)
 )
 
 ids = tok("hello world", return_tensors="pt").input_ids
@@ -50,9 +54,18 @@ kappa(b) = (1/√L) · vec( Σ_{p=1..L} c_{b_p} ⊗ p_p )
 ```
 
 where `c_v` is the v-th basis vector in R^256 (one-hot for byte value v) and
-`p_p` is the p-th basis vector in R^32 (one-hot for byte position p). The
-result is z-normalized per-token, then passed through a single learned linear
-projection `Linear(D, d_model)`.
+`p_p` is the p-th basis vector in R^`pos_dim` (one-hot for byte position p).
+The result is z-normalized per-token, then passed through a single learned
+linear projection `Linear(D, d_model)`.
+
+**Architecture canonicality.** This package implements exactly the method
+described in paper §3 — a fixed codec + **one** `nn.Linear(D, d_model,
+bias=False)`. No GELU, no hidden layer, no residual, no norm beyond the
+codec's z-norm. During research we ran ablations with a two-layer
+`Linear → GELU → Linear` projection on some runs; those are not part of
+the method and are deliberately not shipped here. If you need to reproduce
+a specific ablation, build it on top of the codec — don't redefine the
+canonical embedding.
 
 The codec is **content-aware by byte**: tokens that share UTF-8 byte
 prefixes share codec output positions, giving the embedding a built-in
@@ -62,8 +75,9 @@ locality as English at no extra vocab cost.
 
 ## Why use this
 
-- **Parameter efficiency.** Embedding params scale with `D` (typically
-  8192), not vocab size. The bigger your tokenizer, the bigger the win.
+- **Parameter efficiency.** Embedding params scale with `D` (`pos_dim=16`
+  → D=4096 in the paper's 124M experiments; `pos_dim=32` → D=8192 in
+  production), not vocab size. The bigger your tokenizer, the bigger the win.
 - **Orthographic structure built in.** Spelling variants, plural/singular
   pairs, and case variants land near each other in input-embedding space
   by construction. See `probes/cross_model_probe.py` for the full §6.1–6.4
@@ -76,8 +90,9 @@ locality as English at no extra vocab cost.
   `projection.weight` tensor; the byte buffers are reconstructed from the
   tokenizer at load time.
 - **Deployment.** No vocab-resize migration when adding/removing tokens —
-  the codec handles arbitrary byte sequences. The byte buffer is ~4.5 MB
-  for a 131K-vocab tokenizer at `pos_dim=32`.
+  the codec handles arbitrary byte sequences. The byte buffer is ~0.9 MB
+  for a 50K-vocab tokenizer at `pos_dim=16`, ~4.5 MB for a 131K-vocab
+  tokenizer at `pos_dim=32`.
 
 ## Operational variants — `mode="dynamic"` vs `mode="cached"`
 
@@ -151,4 +166,4 @@ Apache 2.0 — see [LICENSE](LICENSE). Copyright 2026 The School of AI.
 ## Contact
 
 - Issues / PRs: [github.com/theschoolofai/kronecker-embeddings/issues](https://github.com/theschoolofai/kronecker-embeddings/issues)
-- Email: `rshravan@the-inkers.com`
+- Email: `rshravan@theschoolofai.in`

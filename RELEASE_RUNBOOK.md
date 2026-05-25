@@ -8,7 +8,9 @@ The release process has four steps:
 1. Fill in the arXiv ID across all placeholder locations.
 2. Push the staging tree to the public GitHub repo.
 3. Set the public repo's website field to the arXiv abstract URL.
-4. *(Optional)* Publish the package to PyPI.
+4. **Publish the package to PyPI.** This step is required — the README's
+   quickstart says `pip install kronecker-embeddings`, and that command
+   must work on release day.
 
 ---
 
@@ -104,11 +106,16 @@ gh repo edit theschoolofai/kronecker-embeddings \
 
 ---
 
-## 4. *(Optional)* Publish to PyPI
+## 4. Publish to PyPI (required)
 
-Skip this step if you are not publishing the package on PyPI. If you do
-publish, the HF model cards' `pip install kronecker-embeddings` snippet
-becomes live.
+This step is required: the public README's quickstart instructs users to
+`pip install kronecker-embeddings`, so the package must be on PyPI by the
+time the GitHub repo goes public. Staging-time check has already confirmed:
+
+- `python -m build` produces valid sdist + wheel
+- `twine check dist/*` passes
+- name `kronecker-embeddings` is available on PyPI (HTTP 404 at
+  `pypi.org/pypi/kronecker-embeddings/json`)
 
 ```bash
 # Build the sdist + wheel:
@@ -140,4 +147,4 @@ python -m venv /tmp/pypi_check && /tmp/pypi_check/bin/pip install kronecker-embe
       their own `ARXIV_ID_PLACEHOLDER` find-replace done. The same token
       `ARXIV_ID_PLACEHOLDER` is used by convention so a single grep across
       both surfaces catches every occurrence.
-- [ ] `pip install kronecker-embeddings` works in a fresh venv *(if PyPI step ran)*.
+- [ ] `pip install kronecker-embeddings` works in a fresh venv.

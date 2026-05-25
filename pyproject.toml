@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { file = "LICENSE" }
 authors = [
-    { name = "Rohan Shravan", email = "rshravan@the-inkers.com" },
+    { name = "Rohan Shravan", email = "rshravan@theschoolofai.in" },
 ]
 keywords = [
     "transformers", "embeddings", "language-models",

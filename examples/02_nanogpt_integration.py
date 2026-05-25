@@ -50,11 +50,13 @@ class GPTSkeleton(nn.Module):
 
         if use_kronecker:
             assert tokenizer is not None, "tokenizer required for use_kronecker=True"
+            # pos_dim=16 (D=4096) matches paper §6.9 124M parameter accounting:
+            # nn.Embedding(50257, 768) = 38.6M  vs  Linear(4096, 768) = 3.1M (~12.5x).
             wte = KroneckerEmbedding(
                 vocab_size=config.vocab_size,
                 d_model=config.n_embd,
                 tokenizer=tokenizer,
-                pos_dim=32,
+                pos_dim=16,
                 mode="dynamic",
             )
         else:
