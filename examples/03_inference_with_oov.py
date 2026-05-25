@@ -31,7 +31,7 @@ def main() -> None:
         vocab_size=tok.vocab_size,
         d_model=128,
         tokenizer=tok,
-        pos_dim=32,
+        pos_dim=16,        # matches paper §6.12 / examples 01-02
     )
 
     # A normal tokenized prompt.

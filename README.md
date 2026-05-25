@@ -93,7 +93,7 @@ locality as English at no extra vocab cost.
 
 | Mode | Memory | Forward compute | Use when |
 |---|---|---|---|
-| `"dynamic"` (default) | `V × (pos_dim + 2)` bytes (~4.5 MB at V=131K) | ~1-4 ms / micro-batch (scatter_add) | Frontier-scale training or memory-tight inference. The default. |
+| `"dynamic"` (default) | `V × (pos_dim + 2)` bytes (~0.9 MB at V=50K, `pos_dim=16`; ~4.5 MB at V=131K production, `pos_dim=32`) | ~1-4 ms / micro-batch (scatter_add) | Frontier-scale training or memory-tight inference. The default. |
 | `"cached"` | `V × D × 4` bytes (gigabytes at frontier scale) | ~0 (just `index_select`) | Small vocab (V ≲ 50K) or you have RAM to burn. |
 
 Both produce **bit-identical** outputs (verified by `tests/test_embedding.py`).
