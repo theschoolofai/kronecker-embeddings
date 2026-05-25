@@ -8501,7 +8501,7 @@
       "step": 4623,
       "embed_type": "kronecker",
       "architecture_notes": "Vanilla nanoGPT GPT-2 124M, pre-norm Blocks (ln_1 before attn, ln_2 before mlp), single-stream",
-      "embed_pipeline_description": "Kron: frozen byte-level PF buffer (V\u00d74096) \u2192 Linear(4096\u21924096) \u2192 GELU \u2192 Linear(4096\u2192768) \u2192 RMSNorm; KroneckerEmbedding(id) returns final D=768 vector",
+      "embed_pipeline_description": "Kron: frozen byte-level Kronecker codec (V\u00d74096) \u2192 per-token z-normalize \u2192 single Linear(4096\u2192768, bias=False) \u2192 (D=768,); canonical paper \u00a73 architecture, no hidden layer / GELU / RMSNorm",
       "preprocessing_before_layer_0": "none (vanilla nanoGPT: x = drop(tok_emb + wpe(pos)), drop is identity in eval; first transformer block applies ln_1 internally inside h[0])",
       "stream_collapse_used": "n/a (single-stream)",
       "E_post_equals_E_raw_after_centering": true,

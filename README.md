@@ -62,6 +62,11 @@ linear projection `Linear(D, d_model)`.
 exactly as described in paper §3. No GELU, no hidden layer, no residual,
 no norm beyond the codec's z-norm.
 
+*Note:* paper §3.4 mentions an optional self-entropy regularizer on the
+projection's row distribution, used in the 138M companion run (paper §6.7).
+It is a production add-on, not part of the canonical method, and is not
+shipped in this reference package.
+
 The codec is **content-aware by byte**: tokens that share UTF-8 byte
 prefixes share codec output positions, giving the embedding a built-in
 orthographic structure (the §6.1–6.4 result). Tokenizers that fragment
