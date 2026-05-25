@@ -1,0 +1,404 @@
+# Trained-embedding probe: gemma-3-1B-pt
+# Repo: google/gemma-3-1b-pt
+# Tokenizer: google/gemma-3-1b-pt  Vocab: 262144  Hidden: 1152  Tied: True
+# Seed (random baseline): 1337  Top-k: 5
+# Kron codec: CHAR_DIM=256, POS_DIM=32, D=8192, 1/sqrt(L), z-normalized
+# Random-pair cos (raw, retrieval space):      Trained=+0.0591 Random=-0.0007 Kron=+0.0527
+# Random-pair cos (centered, ratio denominator): Trained=-0.0013 Random=-0.0007 Kron=+0.0007
+# Mean-vec L2 norm:                              Trained=0.2568 Random=0.0013 Kron=20.6674
+# NOTE: top-K neighbors below are computed in the *raw* cosine space (display).
+# The quantitative ratio table uses *centered* cosines (in-family / random-pair both centered).
+
+## family: run
+  probe = 'run'  (single-tok; ids=[4503]; pieces=['run'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    run                  (+1.000)    run                  (+1.000)    run                  (+1.000)   
+     run                 (+0.827)     stimul              (+0.137)    rung                 (+0.866)   
+    Run                  (+0.772)    回答                   (+0.123)    rund                 (+0.866)   
+     Run                 (+0.736)    Khokhlov             (+0.117)    runk                 (+0.866)   
+    RUN                  (+0.706)     चेक                 (+0.115)    rune                 (+0.866)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+  probe = 'runs'  (single-tok; ids=[85817]; pieces=['runs'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    runs                 (+1.000)    runs                 (+1.000)    runs                 (+1.000)   
+     runs                (+0.809)     Dopo                (+0.135)    run                  (+0.866)   
+     Runs                (+0.767)    baixo                (+0.132)    rens                 (+0.750)   
+    Runs                 (+0.708)     запу                (+0.132)    rune                 (+0.750)   
+    run                  (+0.680)     Великой             (+0.129)    rans                 (+0.750)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'running'  (single-tok; ids=[24825]; pieces=['running'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    running              (+1.000)    running              (+1.000)    running              (+1.000)   
+     running             (+0.871)     genital             (+0.131)    Running              (+0.857)   
+    Running              (+0.814)    melden               (+0.128)    Panning              (+0.714)   
+     Running             (+0.813)    utches               (+0.123)    funding              (+0.714)   
+     RUN                 (+0.572)     consideradas        (+0.121)    winning              (+0.714)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'runner'  (single-tok; ids=[21431]; pieces=['runner'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    runner               (+1.000)    runner               (+1.000)    runner               (+1.000)   
+    runners              (+0.798)     없고                  (+0.137)    runners              (+0.926)   
+     runner              (+0.740)    નાં                  (+0.134)    renner               (+0.833)   
+    Runner               (+0.728)     philanthropist      (+0.121)    Runner               (+0.833)   
+     Runner              (+0.713)    ゥム                   (+0.120)    runde                (+0.730)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'ran'  (single-tok; ids=[5259]; pieces=['ran'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    ran                  (+1.000)    ran                  (+1.000)    ran                  (+1.000)   
+    RAN                  (+0.640)     décision            (+0.135)    rans                 (+0.866)   
+    ranu                 (+0.496)     VID                 (+0.129)    rant                 (+0.866)   
+    rans                 (+0.474)    cated                (+0.127)    ranu                 (+0.866)   
+     ran                 (+0.449)     Euras               (+0.125)    rane                 (+0.866)   
+    [filter] Trained-BPE: 2/5 typographic, 3/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+
+## family: compute
+  probe = 'compute'  (single-tok; ids=[41973]; pieces=['compute'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    compute              (+1.000)    compute              (+1.000)    compute              (+1.000)   
+     compute             (+0.763)     maxWidth            (+0.135)    computed             (+0.935)   
+     Compute             (+0.691)     Hove                (+0.133)    computer             (+0.935)   
+    Compute              (+0.668)    BITMAP               (+0.132)    comput               (+0.926)   
+     computes            (+0.547)     исче                (+0.128)    computers            (+0.882)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'computer'  (single-tok; ids=[28681]; pieces=['computer'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    computer             (+1.000)    computer             (+1.000)    computer             (+1.000)   
+     computer            (+0.896)    करना                 (+0.138)    computers            (+0.943)   
+    Computer             (+0.880)    noch                 (+0.137)    compute              (+0.935)   
+     Computer            (+0.854)     baker               (+0.127)    Computer             (+0.875)   
+    COMPUTER             (+0.794)     }-                  (+0.123)    computed             (+0.875)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'computing'  (single-tok; ids=[133580]; pieces=['computing'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    computing            (+1.000)    computing            (+1.000)    computing            (+1.000)   
+     computing           (+0.837)     Results             (+0.136)    Computing            (+0.889)   
+    Computing            (+0.800)     チ                   (+0.135)    commuting            (+0.889)   
+     Computing           (+0.778)     đáy                 (+0.130)    comput               (+0.816)   
+     COMPUT              (+0.597)    Numbered             (+0.129)    Competing            (+0.778)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'computation'  (single-tok; ids=[143746]; pieces=['computation'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    computation          (+1.000)    computation          (+1.000)    computation          (+1.000)   
+     computation         (+0.814)     reprocessing        (+0.136)    Computation          (+0.909)   
+    Computation          (+0.786)     Zambia              (+0.127)    Computational        (+0.836)   
+     Computation         (+0.733)     dificult            (+0.125)     amputation          (+0.818)   
+     computations        (+0.670)     spagn               (+0.124)     imputation          (+0.818)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'computes'  (2-tok mean; ids=[15834, 507]; pieces=['comput', 'es'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    comput               (+0.721)    es                   (+0.706)    compute              (+0.935)   
+    es                   (+0.721)    comput               (+0.685)    computer             (+0.875)   
+    ES                   (+0.494)    റ്റ്                 (+0.145)    computed             (+0.875)   
+     Comput              (+0.477)     کنی                 (+0.133)    comput               (+0.866)   
+     comput              (+0.468)     HSPB                (+0.131)    computers            (+0.825)   
+    [filter] Trained-BPE: 0/5 typographic, 5/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+
+## family: magnet
+  probe = 'magnet'  (single-tok; ids=[114137]; pieces=['magnet'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magnet               (+1.000)    magnet               (+1.000)    magnet               (+1.000)   
+     magnet              (+0.843)    versation            (+0.134)    magnetic             (+0.866)   
+    Magnet               (+0.820)     Seperti             (+0.133)    Magnet               (+0.833)   
+     Magnet              (+0.793)    ப்பாள                (+0.132)    magn                 (+0.816)   
+     MAGNET              (+0.712)    elles                (+0.132)    maine                (+0.730)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'magnets'  (2-tok mean; ids=[66604, 1713]; pieces=['magn', 'ets'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magn                 (+0.703)    magn                 (+0.713)    magnet               (+0.926)   
+    ets                  (+0.703)    ets                  (+0.707)    magnetic             (+0.802)   
+    Magn                 (+0.504)     manipulator         (+0.132)    Magnet               (+0.771)   
+    ETS                  (+0.500)     Url                 (+0.130)    magn                 (+0.756)   
+     magn                (+0.494)     өт                  (+0.126)    markets              (+0.714)   
+    [filter] Trained-BPE: 0/5 typographic, 5/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+  probe = 'magnetic'  (single-tok; ids=[83750]; pieces=['magnetic'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magnetic             (+1.000)    magnetic             (+1.000)    magnetic             (+1.000)   
+     magnetic            (+0.884)     પારિજા              (+0.134)    Magnetic             (+0.875)   
+    Magnetic             (+0.857)    linde                (+0.126)    magnet               (+0.866)   
+     Magnetic            (+0.828)    示した                  (+0.123)    Magnet               (+0.721)   
+     MAGNETIC            (+0.758)     submenu             (+0.123)    magn                 (+0.707)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'magnetize'  (2-tok mean; ids=[114137, 969]; pieces=['magnet', 'ize'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magnet               (+0.721)    magnet               (+0.696)    magnetic             (+0.825)   
+    ize                  (+0.720)    ize                  (+0.695)    magnet               (+0.816)   
+     magnet              (+0.596)     Barbados            (+0.139)    Magnetic             (+0.707)   
+    Magnet               (+0.595)    мут                  (+0.131)    Magnet               (+0.680)   
+     Magnet              (+0.577)    ően                  (+0.129)    magn                 (+0.666)   
+    [filter] Trained-BPE: 0/5 typographic, 5/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+  probe = 'magnetized'  (2-tok mean; ids=[114137, 1662]; pieces=['magnet', 'ized'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magnet               (+0.728)    ized                 (+0.708)    magnetic             (+0.782)   
+    ized                 (+0.728)    magnet               (+0.704)    magnet               (+0.774)   
+     magnet              (+0.597)     tower               (+0.128)    Magnetic             (+0.670)   
+    Magnet               (+0.587)    टा                   (+0.123)    Magnet               (+0.645)   
+    IZED                 (+0.582)     baton               (+0.123)    magn                 (+0.632)   
+    [filter] Trained-BPE: 0/5 typographic, 5/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+
+## family: tion
+  probe = 'nation'  (single-tok; ids=[53654]; pieces=['nation'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    nation               (+1.000)    nation               (+1.000)    nation               (+1.000)   
+     nation              (+0.747)     Attic               (+0.126)    national             (+0.866)   
+    Nation               (+0.730)    inst                 (+0.125)    ration               (+0.833)   
+     Nation              (+0.692)     indicaciones        (+0.122)    vation               (+0.833)   
+    national             (+0.532)    identifiers          (+0.121)    mation               (+0.833)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'station'  (single-tok; ids=[20529]; pieces=['station'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    station              (+1.000)    station              (+1.000)    station              (+1.000)   
+     station             (+0.817)     संदेह               (+0.138)    stations             (+0.935)   
+    Station              (+0.814)    <unused5144>         (+0.133)    atation              (+0.857)   
+    stations             (+0.791)    㕲                    (+0.132)    utation              (+0.857)   
+     Station             (+0.776)     naranja             (+0.127)    \xe9tation           (+0.857)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'action'  (single-tok; ids=[2064]; pieces=['action'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    action               (+1.000)    action               (+1.000)    action               (+1.000)   
+     action              (+0.882)    িয়নের               (+0.144)    actions              (+0.926)   
+    Action               (+0.825)     Miser               (+0.126)    uction               (+0.833)   
+     Action              (+0.812)     radioButton         (+0.124)    iction               (+0.833)   
+     ACTION              (+0.757)    𒇷                    (+0.123)    ection               (+0.833)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'rotation'  (single-tok; ids=[31512]; pieces=['rotation'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    rotation             (+1.000)    rotation             (+1.000)    rotation             (+1.000)   
+     rotation            (+0.839)    فع                   (+0.131)    rogation             (+0.875)   
+     Rotation            (+0.801)    <unused1629>         (+0.128)    notation             (+0.875)   
+    Rotation             (+0.748)    entor                (+0.126)    Notation             (+0.875)   
+     rotations           (+0.711)    ModelComponent       (+0.124)    Rotation             (+0.875)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'creation'  (single-tok; ids=[33382]; pieces=['creation'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    creation             (+1.000)    creation             (+1.000)    creation             (+1.000)   
+     creation            (+0.846)     ecma                (+0.135)    creational           (+0.894)   
+    Creation             (+0.806)    ruv                  (+0.129)    Creation             (+0.875)   
+     Creation            (+0.794)     (".                 (+0.126)    creatic              (+0.802)   
+     creación            (+0.711)    attutto              (+0.125)    creat                (+0.790)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+
+## family: code
+  probe = 'def'  (single-tok; ids=[2063]; pieces=['def'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    def                  (+1.000)    def                  (+1.000)    def                  (+1.000)   
+    Def                  (+0.687)    𝓎                    (+0.134)    defl                 (+0.866)   
+     def                 (+0.671)     accidens            (+0.134)    defi                 (+0.866)   
+     Def                 (+0.652)     marcado             (+0.133)    defn                 (+0.866)   
+    DEF                  (+0.574)    <unused6225>         (+0.129)    defe                 (+0.866)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+
+  probe = 'return'  (single-tok; ids=[2060]; pieces=['return'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    return               (+1.000)    return               (+1.000)    return               (+1.000)   
+     return              (+0.869)    치는                   (+0.133)    returns              (+0.926)   
+     Return              (+0.800)    വിടെ                 (+0.121)    returned             (+0.866)   
+    Return               (+0.767)    ಳಿತ                  (+0.118)    Return               (+0.833)   
+     RETURN              (+0.743)    uerre                (+0.118)    returning            (+0.816)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'import'  (single-tok; ids=[1106]; pieces=['import'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    import               (+1.000)    import               (+1.000)    import               (+1.000)   
+     import              (+0.745)     trente              (+0.149)    importe              (+0.926)   
+     Import              (+0.702)     Durchmesser         (+0.127)    imports              (+0.926)   
+    Import               (+0.645)    Nella                (+0.126)    imported             (+0.866)   
+     imports             (+0.589)    HELP                 (+0.119)    Import               (+0.833)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'class'  (single-tok; ids=[1999]; pieces=['class'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    class                (+1.000)    class                (+1.000)    class                (+1.000)   
+     class               (+0.878)     उधार                (+0.132)    classe               (+0.913)   
+    Class                (+0.785)    ഞ                    (+0.129)    clas                 (+0.894)   
+     Class               (+0.768)     prosthetic          (+0.127)    classed              (+0.845)   
+    CLASS                (+0.692)     ptr                 (+0.127)    classic              (+0.845)   
+    [filter] Trained-BPE: 4/5 typographic, 1/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'while'  (single-tok; ids=[6858]; pieces=['while'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    while                (+1.000)    while                (+1.000)    while                (+1.000)   
+     while               (+0.857)    (-)                  (+0.136)    white                (+0.800)   
+     WHILE               (+0.704)     स्काउट              (+0.128)    While                (+0.800)   
+     whilst              (+0.695)     smi                 (+0.128)    Chile                (+0.800)   
+    While                (+0.682)    姆斯                   (+0.127)    weile                (+0.800)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+    [note] kron L2!=cos top-K
+
+
+## family: ident
+  probe = 'self'  (single-tok; ids=[1508]; pieces=['self'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    self                 (+1.000)    self                 (+1.000)    self                 (+1.000)   
+     self                (+0.818)    pairing              (+0.126)    sel                  (+0.866)   
+    Self                 (+0.769)    閏                    (+0.123)    selfobj              (+0.756)   
+     Self                (+0.746)     zapatos             (+0.123)    selfish              (+0.756)   
+     SELF                (+0.680)    বিশ্ব                (+0.122)    sels                 (+0.750)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'None'  (single-tok; ids=[9336]; pieces=['None'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    None                 (+1.000)    None                 (+1.000)    None                 (+1.000)   
+     None                (+0.899)    <unused1760>         (+0.139)    Non                  (+0.866)   
+    none                 (+0.692)    桃                    (+0.137)    Fone                 (+0.750)   
+     none                (+0.683)    .."                  (+0.135)    Node                 (+0.750)   
+     NONE                (+0.658)    ORO                  (+0.132)     one                 (+0.750)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 0/5 typographic, 5/5 morphological
+    [note] kron L2!=cos top-K
+
+  probe = 'True'  (single-tok; ids=[4339]; pieces=['True'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    True                 (+1.000)    True                 (+1.000)    True                 (+1.000)   
+     True                (+0.916)     ES                  (+0.145)    Tru                  (+0.866)   
+    true                 (+0.767)    तल                   (+0.138)    Tree                 (+0.750)   
+     true                (+0.736)     కలి                 (+0.138)     rue                 (+0.750)   
+     TRUE                (+0.735)    資源                   (+0.123)    prue                 (+0.750)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'False'  (single-tok; ids=[9277]; pieces=['False'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    False                (+1.000)    False                (+1.000)    False                (+1.000)   
+     False               (+0.905)    ubov                 (+0.139)    false                (+0.800)   
+    false                (+0.761)    ຫຼື                  (+0.130)    Fal                  (+0.775)   
+     false               (+0.749)     declines            (+0.124)    Vals                 (+0.671)   
+     FALSE               (+0.698)     avant               (+0.121)    rals                 (+0.671)   
+    [filter] Trained-BPE: 5/5 typographic, 0/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+  probe = 'lambda'  (single-tok; ids=[3485]; pieces=['lambda'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    lambda               (+1.000)    lambda               (+1.000)    lambda               (+1.000)   
+     lambda              (+0.761)    வர                   (+0.144)    Lambda               (+0.833)   
+     Lambda              (+0.539)    routeName            (+0.135)    lamb                 (+0.816)   
+    Lambda               (+0.514)    ક્ષા                 (+0.132)    lam                  (+0.707)   
+     λ                   (+0.442)     взгля               (+0.130)    lamide               (+0.666)   
+    [filter] Trained-BPE: 3/5 typographic, 2/5 morphological  |  Random-BPE: 0/5 typographic, 5/5 morphological  |  Kronecker: 1/5 typographic, 4/5 morphological
+
+
+## OOV whole-string queries
+  probe = 'unhappiness'  (2-tok mean; pieces=['un', 'happiness'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    happiness            (+0.706)    happiness            (+0.726)     Chaplin             (+0.532)   
+    un                   (+0.706)    un                   (+0.716)    enhancing            (+0.502)   
+     happiness           (+0.584)     自                   (+0.125)     Wrapping            (+0.502)   
+     Happiness           (+0.540)    AttrName             (+0.125)     Giappone            (+0.502)   
+    Un                   (+0.527)    Specifications       (+0.120)     chipping            (+0.502)   
+
+  probe = 'magnetization'  (2-tok mean; pieces=['magnet', 'ization'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    magnet               (+0.716)    ization              (+0.720)     monetization        (+0.769)   
+    ization              (+0.716)    magnet               (+0.703)     amortization        (+0.692)   
+     magnet              (+0.605)     Polsce              (+0.128)    magnetic             (+0.686)   
+    IZATION              (+0.598)     pompe               (+0.128)    magnet               (+0.679)   
+    Magnet               (+0.594)     consultation        (+0.128)     digitization        (+0.615)   
+
+  probe = 'electromagnetic'  (2-tok mean; pieces=['elect', 'romagnetic'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    romagnetic           (+0.759)    romagnetic           (+0.723)    electro              (+0.683)   
+    elect                (+0.759)    elect                (+0.709)    electron             (+0.639)   
+    Elect                (+0.620)    ashima               (+0.135)    electrode            (+0.602)   
+     Elect               (+0.564)     ਰਹ                  (+0.132)    electrons            (+0.602)   
+    ELECT                (+0.539)    াম্প                 (+0.125)    Electro              (+0.585)   
+
+  probe = 'computability'  (2-tok mean; pieces=['comput', 'ability'])
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    comput               (+0.710)    ability              (+0.715)    compatibility        (+0.846)   
+    ability              (+0.710)    comput               (+0.697)    Compatibility        (+0.769)   
+    ABILITY              (+0.529)     contest             (+0.133)    comput               (+0.679)   
+     comput              (+0.473)    scre                 (+0.128)    computation          (+0.669)   
+     Comput              (+0.469)     जाएगी               (+0.128)    compute              (+0.629)   
+
+  probe = 'supercalifragilisticexpialidocious'  (10-tok mean; pieces=['super', 'cal', 'if', 'rag', 'il', 'istic']...)
+    Trained-BPE                      Random-BPE                       Kronecker                       
+    il                   (+0.490)    cal                  (+0.366)    super                (+0.395)   
+    if                   (+0.460)    istic                (+0.337)    supers               (+0.360)   
+    id                   (+0.449)    if                   (+0.333)    superclass           (+0.334)   
+    ial                  (+0.446)    il                   (+0.323)    Super                (+0.315)   
+    cal                  (+0.404)    ial                  (+0.315)    Superman             (+0.311)   
+
+
+## Quantitative summary (CENTERED cosines — mean row subtracted per space)
+  Family     Space         In-family cos  Random-pair cos      Ratio
+  run        Trained-BPE          0.4419          -0.0013    -329.93
+  run        Random-BPE          -0.0151          -0.0007      21.54
+  run        Kronecker            0.6181           0.0007     874.10
+
+  compute    Trained-BPE          0.3937          -0.0013    -293.93
+  compute    Random-BPE          -0.0097          -0.0007      13.87
+  compute    Kronecker            0.7522           0.0007    1063.66
+
+  magnet     Trained-BPE          0.4575          -0.0013    -341.54
+  magnet     Random-BPE           0.1749          -0.0007    -249.16
+  magnet     Kronecker            0.8214           0.0007    1161.64
+
+  tion       Trained-BPE          0.0931          -0.0013     -69.52
+  tion       Random-BPE          -0.0089          -0.0007      12.74
+  tion       Kronecker            0.1560           0.0007     220.61
+
+## Canonical-form filtered retrieval (top-5 non-self)
+
+Reports the fraction of top-5 non-self retrievals whose canonical form differs
+from the probe's. Higher = more genuine morphological/semantic candidates.
+Lower = mostly typographic variants of the probe word itself.
+
+  Family     Space         morphological@5  typographic@5
+  run        Trained-BPE              0.40           0.60
+  run        Random-BPE               1.00           0.00
+  run        Kronecker                0.88           0.12
+
+  compute    Trained-BPE              0.48           0.52
+  compute    Random-BPE               1.00           0.00
+  compute    Kronecker                0.84           0.16
+
+  magnet     Trained-BPE              0.64           0.36
+  magnet     Random-BPE               1.00           0.00
+  magnet     Kronecker                0.92           0.08
+
+  tion       Trained-BPE              0.28           0.72
+  tion       Random-BPE               1.00           0.00
+  tion       Kronecker                0.92           0.08
+
+
+## Quantitative summary (RAW cosines — no centering, for reference)
+  Family     Space         In-family cos  Random-pair cos      Ratio
+  run        Trained-BPE          0.4340           0.0591       7.35
+  run        Random-BPE          -0.0151          -0.0007      21.52
+  run        Kronecker            0.6174           0.0527      11.71
+
+  compute    Trained-BPE          0.4310           0.0591       7.30
+  compute    Random-BPE          -0.0098          -0.0007      14.00
+  compute    Kronecker            0.7479           0.0527      14.19
+
+  magnet     Trained-BPE          0.4780           0.0591       8.09
+  magnet     Random-BPE           0.1750          -0.0007    -250.07
+  magnet     Kronecker            0.8212           0.0527      15.58
+
+  tion       Trained-BPE          0.1059           0.0591       1.79
+  tion       Random-BPE          -0.0088          -0.0007      12.57
+  tion       Kronecker            0.1573           0.0527       2.98

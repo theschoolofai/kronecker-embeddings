@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kronecker-embeddings"
+version = "0.1.0"
+description = "Byte-level structured token representations for parameter-efficient language models. Reference implementation."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Rohan Shravan", email = "rshravan@the-inkers.com" },
+]
+keywords = [
+    "transformers", "embeddings", "language-models",
+    "byte-level", "pytorch", "nlp", "tokenization",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "torch>=2.0",
+    "transformers>=4.40",
+    "numpy>=1.23",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/theschoolofai/kronecker-embeddings"
+Repository = "https://github.com/theschoolofai/kronecker-embeddings"
+Paper = "https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+kronecker_embeddings = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"

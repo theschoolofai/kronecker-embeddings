@@ -1,0 +1,174 @@
+# OOV-as-single-token demonstration: llama-3.2-1B
+# Vocab: 128256  Hidden: 2048
+# Kron codec: CHAR_DIM=256, POS_DIM=32, D=8192
+# Retrieval space: pure byte-level Kronecker (no trained projection)
+
+## technical_terms
+  probe = 'kubernetes' (2 pieces; pieces=['k', 'ubernetes'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'kube'                   (+0.632)
+      'Hibernate'              (+0.632)
+      ' usernames'             (+0.600)
+      ' uber'                  (+0.565)
+      'internet'               (+0.559)
+
+  probe = 'tensorflow' (in-vocab; pieces=['tensorflow'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'tensorflow'             (+1.000)
+      'tensor'                 (+0.774)
+      'sensor'                 (+0.645)
+      'Tensor'                 (+0.645)
+      'Sensor'                 (+0.645)
+
+  probe = 'asynchronously' (2 pieces; pieces=['as', 'ynchronously'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      ' synchronous'           (+0.848)
+      ' synchron'              (+0.712)
+      ' synchronize'           (+0.617)
+      'async'                  (+0.597)
+      '\tsynchronized'         (+0.592)
+
+  probe = 'deserialization' (2 pieces; pieces=['des', 'erialization'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'deserialize'            (+0.778)
+      ' specialization'        (+0.733)
+      'Deserialize'            (+0.700)
+      'Deserializer'           (+0.670)
+      ' Initialization'        (+0.666)
+
+
+## neologisms_brands
+  probe = 'vibecoding' (4 pieces; pieces=['v', 'ib', 'ec', 'oding'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      ' preceding'             (+0.600)
+      ' including'             (+0.499)
+      ' intending'             (+0.499)
+      '.isLoading'             (+0.499)
+      ' impending'             (+0.499)
+
+  probe = 'shoggoth' (4 pieces; pieces=['sh', 'og', 'go', 'th'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      ' Forgot'                (+0.534)
+      ' forgot'                (+0.534)
+      ' hodnot'                (+0.534)
+      'Thought'                (+0.534)
+      'thought'                (+0.534)
+
+  probe = 'tiramisu' (3 pieces; pieces=['t', 'iram', 'isu'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'tir'                    (+0.612)
+      'thritis'                (+0.534)
+      '.frames'                (+0.534)
+      ' frames'                (+0.534)
+      '(frames'                (+0.534)
+
+  probe = 'rizzler' (3 pieces; pieces=['r', 'izz', 'ler'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'riz'                    (+0.654)
+      'ripple'                 (+0.617)
+      'ricular'                (+0.571)
+      'Fizz'                   (+0.567)
+      'ritz'                   (+0.567)
+
+
+## code_identifiers
+  probe = 'getUserById' (2 pieces; pieces=['getUser', 'ById'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'getUser'                (+0.798)
+      'getAs'                  (+0.539)
+      'getQuery'               (+0.532)
+      'get'                    (+0.522)
+      'getUrl'                 (+0.492)
+
+  probe = 'fetchAsync' (2 pieces; pieces=['fetch', 'Async'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'fetch'                  (+0.707)
+      'fetchAll'               (+0.670)
+      'retch'                  (+0.565)
+      'Fetch'                  (+0.565)
+      'fet'                    (+0.547)
+
+  probe = 'isPrimeNumber' (3 pieces; pieces=['is', 'Prime', 'Number'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'iscrim'                 (+0.566)
+      ' stringBuffer'          (+0.461)
+      ' randomNumber'          (+0.461)
+      'istrib'                 (+0.452)
+      ' scrim'                 (+0.452)
+
+  probe = 'parseJSON' (2 pieces; pieces=['parse', 'JSON'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'parse'                  (+0.745)
+      'parser'                 (+0.680)
+      'parsed'                 (+0.680)
+      'pars'                   (+0.666)
+      'parsers'                (+0.630)
+
+
+## compound_words
+  probe = 'unhappiness' (3 pieces; pieces=['un', 'h', 'appiness'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      ' Shipping'              (+0.502)
+      ' Shopping'              (+0.502)
+      '_shipping'              (+0.502)
+      ' swapping'              (+0.502)
+      '.shopping'              (+0.502)
+
+  probe = 'magnetization' (3 pieces; pieces=['m', 'agnet', 'ization'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      '.Organization'          (+0.538)
+      ' organization'          (+0.538)
+      ' localization'          (+0.538)
+      ' optimization'          (+0.538)
+      '.localization'          (+0.538)
+
+  probe = 'antidisestablishmentarianism' (6 pieces; pieces=['ant', 'idis', 'establish', 'ment', 'arian', 'ism'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'anti'                   (+0.377)
+      'andidates'              (+0.377)
+      'antidad'                (+0.356)
+      'andid'                  (+0.337)
+      'anted'                  (+0.337)
+
+  probe = 'supercalifragilisticexpialidocious' (11 pieces; pieces=['sup', 'erc', 'al', 'if', 'rag', 'il', 'istic', 'exp', 'ial', 'id', 'ocious'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'super'                  (+0.395)
+      'Super'                  (+0.315)
+      'sumer'                  (+0.315)
+      'sup'                    (+0.306)
+      'uppercase'              (+0.293)
+
+
+## multilingual
+  probe = 'namaste' (2 pieces; pieces=['nam', 'aste'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'nama'                   (+0.756)
+      'names'                  (+0.676)
+      ' amassed'               (+0.668)
+      'nam'                    (+0.654)
+      'namese'                 (+0.617)
+
+  probe = 'धन्यवाद' (4 pieces; pieces=['à¤§', 'à¤¨', 'à¥įà¤¯à¤µ', 'à¤¾à¤¦'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'ानसभ'                   (+0.503)
+      'सन'                     (+0.445)
+      '़न'                     (+0.445)
+      'ान'                     (+0.445)
+      'िन'                     (+0.445)
+
+  probe = '感謝' (2 pieces; pieces=['æĦŁ', 'è¬Ŀ'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      '感'                      (+0.707)
+      '感觉'                     (+0.666)
+      '\\xe6\\x84'             (+0.577)
+      '意思'                     (+0.500)
+      '感情'                     (+0.500)
+
+  probe = 'Schadenfreude' (4 pieces; pieces=['Sch', 'aden', 'fre', 'ude'])
+    Top-5 nearest in-vocab tokens (Kronecker cosine):
+      'Sch'                    (+0.480)
+      'Scheduler'              (+0.462)
+      'Scheme'                 (+0.452)
+      'ichage'                 (+0.452)
+      ' shade'                 (+0.452)
+
