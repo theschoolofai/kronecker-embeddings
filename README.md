@@ -58,14 +58,9 @@ where `c_v` is the v-th basis vector in R^256 (one-hot for byte value v) and
 The result is z-normalized per-token, then passed through a single learned
 linear projection `Linear(D, d_model)`.
 
-**Architecture canonicality.** This package implements exactly the method
-described in paper §3 — a fixed codec + **one** `nn.Linear(D, d_model,
-bias=False)`. No GELU, no hidden layer, no residual, no norm beyond the
-codec's z-norm. During research we ran ablations with a two-layer
-`Linear → GELU → Linear` projection on some runs; those are not part of
-the method and are deliberately not shipped here. If you need to reproduce
-a specific ablation, build it on top of the codec — don't redefine the
-canonical embedding.
+**Architecture.** Fixed codec + **one** `nn.Linear(D, d_model, bias=False)`,
+exactly as described in paper §3. No GELU, no hidden layer, no residual,
+no norm beyond the codec's z-norm.
 
 The codec is **content-aware by byte**: tokens that share UTF-8 byte
 prefixes share codec output positions, giving the embedding a built-in
