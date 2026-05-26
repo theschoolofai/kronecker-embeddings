@@ -1,150 +1,136 @@
 # Release runbook
 
-Literal commands to publish this staging tree on submission day. Run from the
-**staging repo root** (`kronecker-embeddings-staging/`) unless noted otherwise.
+**Current state (as of initial publication):** GitHub repo `github.com/theschoolofai/kronecker-embeddings` is public with the full reference implementation. PyPI package `kronecker-embeddings==0.1.0` is uploaded and `pip install kronecker-embeddings` works. The arXiv ID is not yet assigned; the README badge displays `IN_PROCESS`, and the BibTeX citation + `pyproject.toml` `Paper` URL carry the literal token `ARXIV_ID_PLACEHOLDER`.
 
-The release process has four steps:
-
-1. Fill in the arXiv ID across all placeholder locations.
-2. Push the staging tree to the public GitHub repo.
-3. Set the public repo's website field to the arXiv abstract URL.
-4. **Publish the package to PyPI.** This step is required — the README's
-   quickstart says `pip install kronecker-embeddings`, and that command
-   must work on release day.
+**Remaining release-day actions** are limited to wiring the real arXiv ID through every public surface and setting the GitHub website field.
 
 ---
 
-## 0. Prerequisites (one-time)
+## Step 1 — Find-replace `ARXIV_ID_PLACEHOLDER` in the GitHub repo
 
-```bash
-# Ensure gh CLI is authenticated to the org account that owns
-# github.com/theschoolofai/kronecker-embeddings:
-gh auth status
+The token appears in exactly **2 production locations** in the public repo:
 
-# Confirm you are on the right working tree:
-pwd          # → .../kronecker-embeddings-staging
-git status   # → clean (no uncommitted changes)
+```
+README.md:<line>          journal={arXiv preprint arXiv:ARXIV_ID_PLACEHOLDER},
+pyproject.toml:44         Paper = "https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER"
 ```
 
----
+(Verify with `grep -rn ARXIV_ID_PLACEHOLDER --exclude="RELEASE_RUNBOOK.md" .` — the runbook itself contains the token as documentation; exclude it from the find-replace.)
 
-## 1. Fill in the arXiv ID
-
-Replace the literal token `ARXIV_ID_PLACEHOLDER` with the real ID
-(e.g. `2606.12345`) across the **exact 4 locations** below. The
-release-day find-replace must catch every one.
+Run, with `REAL_ID` set to the assigned arXiv ID (e.g. `2606.12345`):
 
 ```bash
-# Verify the placeholder is present at exactly the expected locations:
-grep -rn "ARXIV_ID_PLACEHOLDER" .
-# Expected output (4 hits):
-#   README.md:7:[![Paper](https://img.shields.io/badge/arXiv-ARXIV_ID_PLACEHOLDER-b31b1b.svg)](https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER)
-#   README.md:133:  journal={arXiv preprint arXiv:ARXIV_ID_PLACEHOLDER},
-#   pyproject.toml:44:Paper = "https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER"
-#   RELEASE_RUNBOOK.md   (these instructions — ignore)
+git clone git@github.com:theschoolofai/kronecker-embeddings.git
+cd kronecker-embeddings
 
-# Apply the replacement (set REAL_ID first):
-REAL_ID="2606.12345"   # ← REPLACE WITH ACTUAL arXiv ID
+REAL_ID="2606.12345"   # ← replace with assigned ID
 sed -i.bak "s/ARXIV_ID_PLACEHOLDER/${REAL_ID}/g" README.md pyproject.toml
 rm README.md.bak pyproject.toml.bak
 
-# Verify zero placeholders remain (except in this runbook):
-grep -rn "ARXIV_ID_PLACEHOLDER" --exclude="RELEASE_RUNBOOK.md" .
+# Verify zero placeholders remain in production files:
+grep -rn ARXIV_ID_PLACEHOLDER --exclude=RELEASE_RUNBOOK.md . 
 # Expected: no output.
+```
 
-# Commit:
-git add README.md pyproject.toml
+**Note on `pyproject.toml`:** the placeholder substitution here matters only for **future PyPI version bumps** (0.2.0, 0.1.1, etc.). PyPI 0.1.0 is already published with `ARXIV_ID_PLACEHOLDER` in its metadata; PyPI releases are **immutable per version** — there is no way to edit a published wheel's metadata. The published 0.1.0's `Paper` URL will permanently point to `arxiv.org/abs/ARXIV_ID_PLACEHOLDER`. This is an accepted known state. The live citation surface is the GitHub README (which we are fixing here); a future 0.1.1 release will carry the corrected URL.
+
+---
+
+## Step 2 — Update the README badge separately
+
+The badge encodes its text in the URL, not as the literal token `ARXIV_ID_PLACEHOLDER`, so step 1's find-replace **does not catch it**. Update it manually.
+
+The badge URL uses `IN__PROCESS` (double underscore) to render `IN_PROCESS` per shields.io's URL-encoding rules. Replace both pieces:
+
+```bash
+# In the cloned repo from step 1:
+sed -i.bak \
+  -e "s|arXiv-IN__PROCESS-b31b1b|arXiv-${REAL_ID}-b31b1b|g" \
+  -e "s|](https://arxiv.org/)|](https://arxiv.org/abs/${REAL_ID})|g" \
+  README.md
+rm README.md.bak
+
+# Also remove the "> **Status:** ..." line below the badges (the ID is now assigned):
+sed -i.bak '/> \*\*Status:\*\* Accompanying paper submitted to arXiv; ID in process/d' README.md
+rm README.md.bak
+
+# Final verification:
+grep -n "IN_PROCESS\|IN__PROCESS" README.md           # expect: no output
+grep -n "ARXIV_ID_PLACEHOLDER" README.md pyproject.toml  # expect: no output
+```
+
+---
+
+## Step 3 — Find-replace `ARXIV_ID_PLACEHOLDER` on the 4 HF model cards
+
+The 4 Hugging Face model card repos that depend on this package use the **same `ARXIV_ID_PLACEHOLDER` token** by convention. A single find-replace per card:
+
+```bash
+# For each of the 4 dependent HF model card repos under theschoolofai/:
+git clone git@hf.co:theschoolofai/<model>.git
+cd <model>
+sed -i.bak "s/ARXIV_ID_PLACEHOLDER/${REAL_ID}/g" README.md
+rm README.md.bak
+git add README.md
 git commit -m "Set arXiv ID to ${REAL_ID}"
+git push
+cd ..
 ```
 
 ---
 
-## 2. Push to the public repo
-
-The public stub repo `github.com/theschoolofai/kronecker-embeddings` should
-exist already with a placeholder README. We force the staged tree on top of
-it (the placeholder README has no history worth preserving).
+## Step 4 — Commit + push the GitHub edits
 
 ```bash
-# Add the public repo as a remote:
-git remote add origin git@github.com:theschoolofai/kronecker-embeddings.git
-
-# Fetch + verify what's on the public side currently:
-git fetch origin
-git log --oneline origin/main | head -5      # → just the placeholder commit(s)
-
-# Push staging history as the new main. The placeholder will be replaced.
-# (--force is intentional and safe here: the public repo holds only a stub.)
-git push --force origin main:main
-```
-
-If the public repo doesn't exist yet, create it first:
-
-```bash
-gh repo create theschoolofai/kronecker-embeddings \
-    --public \
-    --description "Byte-level structured token representations for parameter-efficient language models. Reference implementation." \
-    --license apache-2.0 \
-    --homepage "https://arxiv.org/abs/${REAL_ID}"
-git remote add origin git@github.com:theschoolofai/kronecker-embeddings.git
-git push -u origin main
+# In the kronecker-embeddings clone from step 1+2:
+git add README.md pyproject.toml
+git commit -m "Set arXiv ID to ${REAL_ID}; remove pre-assignment status line"
+git push origin main
 ```
 
 ---
 
-## 3. Set the public repo's website / topics
+## Step 5 — Set the GitHub website field to the arXiv abstract URL
 
 ```bash
 gh repo edit theschoolofai/kronecker-embeddings \
-    --homepage "https://arxiv.org/abs/${REAL_ID}" \
-    --add-topic transformers \
-    --add-topic embeddings \
-    --add-topic byte-level \
-    --add-topic language-models \
-    --add-topic pytorch
+  --homepage "https://arxiv.org/abs/${REAL_ID}"
 ```
 
 ---
 
-## 4. Publish to PyPI (required)
-
-This step is required: the public README's quickstart instructs users to
-`pip install kronecker-embeddings`, so the package must be on PyPI by the
-time the GitHub repo goes public. Staging-time check has already confirmed:
-
-- `python -m build` produces valid sdist + wheel
-- `twine check dist/*` passes
-- name `kronecker-embeddings` is available on PyPI (HTTP 404 at
-  `pypi.org/pypi/kronecker-embeddings/json`)
+## Step 6 — Final verification
 
 ```bash
-# Build the sdist + wheel:
-python -m pip install --upgrade build twine
-python -m build
-ls dist/   # → kronecker_embeddings-0.1.0.tar.gz, kronecker_embeddings-0.1.0-py3-none-any.whl
+# From a clean directory, fresh-clone and verify:
+git clone git@github.com:theschoolofai/kronecker-embeddings.git /tmp/verify_release
+cd /tmp/verify_release
 
-# Smoke-check on TestPyPI first (recommended):
-twine upload --repository testpypi dist/*
+# Both must return zero output:
+grep -rn ARXIV_ID_PLACEHOLDER --exclude-dir=.git .
+grep -rn "IN_PROCESS\|IN__PROCESS" --exclude-dir=.git .
 
-# Real release:
-twine upload dist/*
+# Verify the real ID appears where expected:
+grep -n "${REAL_ID}" README.md pyproject.toml
+
+# Verify GitHub website field points to arXiv:
+gh repo view theschoolofai/kronecker-embeddings --json homepageUrl
 ```
 
-After PyPI publish, verify in a fresh venv:
-
-```bash
-python -m venv /tmp/pypi_check && /tmp/pypi_check/bin/pip install kronecker-embeddings
-/tmp/pypi_check/bin/python -c "from kronecker_embeddings import KroneckerEmbedding; print('ok')"
-```
+And visually:
+- Visit `https://github.com/theschoolofai/kronecker-embeddings` — badge should read `arXiv: ${REAL_ID}`, click should land on the arXiv abstract page.
+- Visit `https://pypi.org/project/kronecker-embeddings/` — note that 0.1.0's metadata still shows `arxiv.org/abs/ARXIV_ID_PLACEHOLDER` (immutable); plan a 0.1.1 release when convenient to update.
 
 ---
 
 ## Post-release checklist
 
-- [ ] Public repo's main branch contains the staged tree (4 placeholders → real ID).
-- [ ] Public repo website field links to the arXiv abstract.
-- [ ] HF model cards (separately maintained, depends on this package) have
-      their own `ARXIV_ID_PLACEHOLDER` find-replace done. The same token
-      `ARXIV_ID_PLACEHOLDER` is used by convention so a single grep across
-      both surfaces catches every occurrence.
-- [ ] `pip install kronecker-embeddings` works in a fresh venv.
+- [ ] GitHub README badge reads `arXiv: <REAL_ID>` and links to the real abstract.
+- [ ] GitHub README BibTeX uses the real ID.
+- [ ] `pyproject.toml` `Paper` URL uses the real ID (for future PyPI version bumps).
+- [ ] Status line about "ID in process" is removed from the README.
+- [ ] 4 HF model cards have the real ID baked in.
+- [ ] GitHub repo's website field links to the arXiv abstract.
+- [ ] `grep ARXIV_ID_PLACEHOLDER` across the GitHub repo returns zero (excluding `RELEASE_RUNBOOK.md`).
+- [ ] `grep IN_PROCESS` across the GitHub README returns zero.
+- [ ] (Optional, when convenient) Publish PyPI 0.1.1 to update the `Paper` URL in the package metadata — current 0.1.0 retains the placeholder permanently.

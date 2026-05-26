@@ -4,7 +4,9 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python ≥3.10](https://img.shields.io/badge/python-≥3.10-blue.svg)](https://www.python.org/downloads/)
-[![Paper](https://img.shields.io/badge/arXiv-ARXIV_ID_PLACEHOLDER-b31b1b.svg)](https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER)
+[![Paper](https://img.shields.io/badge/arXiv-IN__PROCESS-b31b1b.svg)](https://arxiv.org/)
+
+> **Status:** Accompanying paper submitted to arXiv; ID in process. The badge and citation will be updated once the ID is assigned.
 
 A deterministic byte-level factorization that replaces `nn.Embedding` with a
 fixed codec + a single trainable projection. Parameters scale with the
