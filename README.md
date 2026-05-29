@@ -4,9 +4,7 @@
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python ≥3.10](https://img.shields.io/badge/python-≥3.10-blue.svg)](https://www.python.org/downloads/)
-[![Paper](https://img.shields.io/badge/arXiv-IN__PROCESS-b31b1b.svg)](https://arxiv.org/)
-
-> **Status:** Accompanying paper submitted to arXiv; ID in process. The badge and citation will be updated once the ID is assigned.
+[![Paper](https://img.shields.io/badge/arXiv-2605.29459-b31b1b.svg)](https://arxiv.org/abs/2605.29459)
 
 A deterministic byte-level factorization that replaces `nn.Embedding` with a
 fixed codec + a single trainable projection. Parameters scale with the
@@ -147,13 +145,11 @@ re-running.
   title={Kronecker Embeddings: Byte-Level Structured Token Representations
          for Parameter-Efficient Language Models},
   author={Shravan, Rohan},
-  journal={arXiv preprint arXiv:ARXIV_ID_PLACEHOLDER},
+  journal={arXiv preprint arXiv:2605.29459},
   year={2026},
   url={https://github.com/theschoolofai/kronecker-embeddings}
 }
 ```
-
-(The arXiv id will be replaced upon acceptance.)
 
 ## See also
 

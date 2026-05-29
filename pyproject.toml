@@ -41,7 +41,7 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/theschoolofai/kronecker-embeddings"
 Repository = "https://github.com/theschoolofai/kronecker-embeddings"
-Paper = "https://arxiv.org/abs/ARXIV_ID_PLACEHOLDER"
+Paper = "https://arxiv.org/abs/2605.29459"
 
 [tool.setuptools.packages.find]
 where = ["src"]
